@@ -11,6 +11,8 @@ services:
       - "81:80"
     networks:
       - shop_app
+    depends_on:
+      - database
 
   ###> doctrine/doctrine-bundle ###
   database:
@@ -30,6 +32,8 @@ services:
       start_period: 30s
     volumes:
       - skeleton-shop-api-data:/var/lib/mysql:rw
+    networks:
+      - shop_app
   ###< doctrine/doctrine-bundle ###
 
 volumes:
