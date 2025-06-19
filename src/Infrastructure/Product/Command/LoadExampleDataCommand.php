@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Command;
+namespace App\Infrastructure\Product\Command;
 
 use App\Entity\Product;
-use App\Infrastructure\Product\Repository\Repository;
+use App\Infrastructure\Product\Repository\ProductRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class LoadExampleDataCommand extends Command
 {
     public function __construct(
-        private readonly Repository $repository,
+        private readonly ProductRepository $repository,
     ) {
         parent::__construct();
     }
