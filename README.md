@@ -14,3 +14,8 @@ docker-compose exec app php bin/console doctrine:database:create
 ```
 docker-compose exec app php bin/console doctrine:migrations:migrate
 ```
+
+### Load default data into database
+```
+docker-compose exec app php bin/console app:load-example-data
+```

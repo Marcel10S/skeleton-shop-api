@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Infrastructure\Product\Repository\Repository as ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
