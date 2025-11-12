@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\App;
 
+use App\Entity\Embeddable\Money;
 use App\Infrastructure\Product\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,17 +17,20 @@ class Product extends BaseEntity
     #[ORM\Column(type: 'boolean')]
     private bool $isActive = true;
 
+    #[ORM\Embedded(class: Money::class)]
+    private Money $price;
+
     public function __construct(
         #[ORM\Column(type: 'string', length: 255)]
         private string $name,
-        #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-        #[Assert\PositiveOrZero]
-        private float $price,
         #[ORM\Column(type: 'integer')]
         #[Assert\PositiveOrZero]
         private int $stock,
+        Money $price,
     ) {
         parent::__construct();
+
+        $this->price = $price;
     }
 
     public function getName(): string
@@ -53,12 +57,12 @@ class Product extends BaseEntity
         return $this;
     }
 
-    public function getPrice(): string
+    public function getPrice(): Money
     {
         return $this->price;
     }
 
-    public function setPrice(string $price): self
+    public function setPrice(Money $price): self
     {
         $this->price = $price;
         return $this;

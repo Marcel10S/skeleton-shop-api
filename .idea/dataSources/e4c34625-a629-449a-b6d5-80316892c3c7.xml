@@ -2,27 +2,9 @@
 <dataSource name="marcel@localhost">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.53">
     <root id="1">
-      <DefaultCasing>exact</DefaultCasing>
+      <DefaultAuthPlugin>mysql_native_password</DefaultAuthPlugin>
       <DefaultEngine>InnoDB</DefaultEngine>
       <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
-      <Grants>marcel|schema||marcel||ALTER|G
-marcel|schema||marcel||ALTER ROUTINE|G
-marcel|schema||marcel||CREATE|G
-marcel|schema||marcel||CREATE ROUTINE|G
-marcel|schema||marcel||CREATE TEMPORARY TABLES|G
-marcel|schema||marcel||CREATE VIEW|G
-marcel|schema||marcel||DELETE|G
-marcel|schema||marcel||DROP|G
-marcel|schema||marcel||EVENT|G
-marcel|schema||marcel||EXECUTE|G
-marcel|schema||marcel||INDEX|G
-marcel|schema||marcel||INSERT|G
-marcel|schema||marcel||LOCK TABLES|G
-marcel|schema||marcel||REFERENCES|G
-marcel|schema||marcel||SELECT|G
-marcel|schema||marcel||SHOW VIEW|G
-marcel|schema||marcel||TRIGGER|G
-marcel|schema||marcel||UPDATE|G</Grants>
       <ServerVersion>8.0.41</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">
@@ -929,7 +911,8 @@ marcel|schema||marcel||UPDATE|G</Grants>
     </schema>
     <schema id="289" parent="1" name="marcel">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2025-06-19.18:33:41</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLevel>2</LastIntrospectionLevel>
+      <LastIntrospectionLocalTimestamp>2025-11-12.21:56:30</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="290" parent="1" name="performance_schema">
@@ -937,10 +920,12 @@ marcel|schema||marcel||UPDATE|G</Grants>
     </schema>
     <user id="291" parent="1" name="marcel"/>
     <table id="292" parent="289" name="doctrine_migration_versions">
+      <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </table>
     <table id="293" parent="289" name="product">
+      <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_unicode_ci</CollationName>
     </table>
@@ -987,22 +972,27 @@ marcel|schema||marcel||UPDATE|G</Grants>
       <Position>4</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="303" parent="293" name="price">
+    <column id="303" parent="293" name="stock">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StoredType>decimal(10,2 digit)|0s</StoredType>
+      <StoredType>int|0s</StoredType>
     </column>
-    <column id="304" parent="293" name="stock">
+    <column id="304" parent="293" name="price_amount">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <index id="305" parent="293" name="PRIMARY">
+    <column id="305" parent="293" name="price_currency">
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <StoredType>varchar(3)|0s</StoredType>
+    </column>
+    <index id="306" parent="293" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="306" parent="293" name="PRIMARY">
+    <key id="307" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

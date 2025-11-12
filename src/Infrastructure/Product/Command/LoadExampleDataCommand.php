@@ -2,7 +2,8 @@
 
 namespace App\Infrastructure\Product\Command;
 
-use App\Entity\Product;
+use App\Entity\App\Product;
+use App\Entity\Embeddable\Money;
 use App\Infrastructure\Product\Repository\ProductRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -34,8 +35,8 @@ class LoadExampleDataCommand extends Command
         for ($i = 1; $i <= 10; $i++) {
             $product = new Product(
                 name: 'Product ' . $i,
-                price: rand(100, 1000) / 10,
                 stock: rand(0, 50),
+                price: new Money(rand(1000, 100000), "PLN")
             );
             $product->setIsActive((bool) rand(0, 1));
 
