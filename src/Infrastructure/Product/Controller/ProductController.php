@@ -2,15 +2,16 @@
 
 namespace App\Infrastructure\Product\Controller;
 
-use App\Entity\Product;
+use App\Entity\App\Product;
+use App\Entity\Embeddable\Money;
 use App\Infrastructure\Product\Handler\ProductCreate;
 use App\Infrastructure\Product\Handler\ProductRemove;
 use App\Infrastructure\Product\Handler\ProductUpdate;
 use App\Infrastructure\Product\Provider\ProductProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[AsController]
@@ -44,8 +45,8 @@ class ProductController extends AbstractController
 
         $product = new Product(
             $data['name'],
-            $data['price'],
             $data['stock'],
+            new Money($data['amount'], $data['currency']),
         );
         $product->setDescription($data['description'] ?? null);
 
@@ -60,8 +61,8 @@ class ProductController extends AbstractController
         $product = $this->productProvider->findOneById($id);
 
         $product->setName($data['name']);
-        $product->setPrice($data['price']);
         $product->setStock($data['stock']);
+        $product->setPrice(new Money($data['amount'], $data['currency']));
         $product->setDescription($data['description'] ?? null);
 
         $handler->update($product);

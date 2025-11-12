@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Product\Handler;
 
-use App\Entity\Product;
+use App\Entity\App\Product;
 use App\Infrastructure\Product\Repository\ProductRepository;
 
 class ProductCreate
