@@ -20,4 +20,18 @@ class ProductQueryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
+
+    /**
+     * @return Product[]
+     */
+    public function findAvailableProducts(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.isActive = :active')
+            ->andWhere('p.stock > :stock')
+            ->setParameter('active', true)
+            ->setParameter('stock', 0)
+            ->getQuery()
+            ->getResult();
+    }
 }
