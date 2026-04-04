@@ -45,7 +45,7 @@ class LoadExampleDataCommand extends Command
             $output->writeln('Product ' . $i . ' added to database.');
         }
 
-        $io->success('Products added!');
+        $io->success('Product added!');
 
         return Command::SUCCESS;
     }

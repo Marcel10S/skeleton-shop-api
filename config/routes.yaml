@@ -1,3 +1,7 @@
 controllers:
     resource: '../src/Infrastructure/'
     type: attribute
+
+ui:
+    resource: '../src/UI/'
+    type: attribute
