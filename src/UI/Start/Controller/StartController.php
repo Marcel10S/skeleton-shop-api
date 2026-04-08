@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[AsController]
-#[Route('/shop', name: 'shop_')]
+#[Route('/', name: 'shop_')]
 class StartController extends AbstractController
 {
     #[Route('', name: 'start', methods: ['GET'])]
