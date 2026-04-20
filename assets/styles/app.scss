@@ -5,6 +5,11 @@
 @import "layout/header";
 @import "layout/container";
 
+// Shared
+@import "shared/buttons";
+@import "shared/tables";
+@import "shared/form";
+
 body {
     background: #f5f5f5;
     margin: 0;

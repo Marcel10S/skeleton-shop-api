@@ -1,0 +1,22 @@
+.button {
+    background: #2563eb;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background: #1d4ed8;
+    }
+
+    &--secondary {
+        background: #e5e7eb;
+        color: #111;
+
+        &:hover {
+            background: #d1d5db;
+        }
+    }
+}

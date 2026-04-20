@@ -1,0 +1,64 @@
+{% extends '@ui/Base/View/base.html.twig' %}
+
+{% block title %}Product Form{% endblock %}
+
+{% block body %}
+
+    <div class="form-page">
+
+        <h1 class="form-page__title">
+            {{ form.vars.value.id ? 'Edit product' : 'Create product' }}
+        </h1>
+
+        {{ form_start(form, { attr: { class: 'form' } }) }}
+
+        <div class="form__group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+
+        <div class="form__group">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="form__group">
+            {{ form_label(form.stock) }}
+            {{ form_widget(form.stock) }}
+            {{ form_errors(form.stock) }}
+        </div>
+
+        <div class="form__group">
+            {{ form_label(form.price.amount) }}
+            {{ form_widget(form.price.amount) }}
+            {{ form_errors(form.price.amount) }}
+        </div>
+
+        <div class="form__group">
+            {{ form_label(form.price.currency) }}
+            {{ form_widget(form.price.currency) }}
+            {{ form_errors(form.price.currency) }}
+        </div>
+
+        <div class="form__group form__group--inline">
+            {{ form_widget(form.isActive) }}
+            {{ form_label(form.isActive) }}
+        </div>
+
+        <div class="form__actions">
+            <button class="button" type="submit">
+                Save
+            </button>
+
+            <a href="{{ path('shop_products_list') }}" class="button button--secondary">
+                Cancel
+            </a>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}
