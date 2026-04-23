@@ -4,7 +4,6 @@ namespace App\UI\Shared\Form;
 
 use App\Entity\Embeddable\Money;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MoneyTransformer implements DataTransformerInterface
 {
@@ -15,7 +14,7 @@ class MoneyTransformer implements DataTransformerInterface
         }
 
         return [
-            'amount' => $value->getAmount(),
+            'amount' => number_format($value->getAmount() / 100, 2, '.', ''),
             'currency' => $value->getCurrency(),
         ];
     }
@@ -23,15 +22,8 @@ class MoneyTransformer implements DataTransformerInterface
     public function reverseTransform($value): Money
     {
         return new Money(
-            (int) $value['amount'],
+            (int) round(((float) $value['amount']) * 100),
             (string) $value['currency']
         );
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Money::class,
-        ]);
     }
 }
