@@ -78,4 +78,25 @@ class ProductController extends AbstractController
             'products' => $products,
         ]);
     }
+
+    #[Route('{id}/delete', name: 'delete', methods: ['POST'])]
+    public function delete(
+        Product $product,
+        Request $request,
+        EntityManagerInterface $entityManager,
+    ): Response {
+        if (!$this->isCsrfTokenValid(
+            'delete_product_'.$product->getId(),
+            $request->request->get('_token')
+        )) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $entityManager->remove($product);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Product deleted.');
+
+        return $this->redirectToRoute('shop_products_list');
+    }
 }
