@@ -19,6 +19,7 @@
             <th>Price</th>
             <th>Stock</th>
             <th>Active</th>
+            <th>Category</th>
             <th></th>
         </tr>
         </thead>
@@ -37,6 +38,10 @@
 
                 <td>
                     {{ product.isActive ? 'Yes' : 'No' }}
+                </td>
+
+                <td>
+                    {{ product.category.name }}
                 </td>
 
                 <td class="table__actions">

@@ -47,6 +47,12 @@
             {{ form_label(form.isActive) }}
         </div>
 
+        <div class="form__group">
+            {{ form_label(form.category) }}
+            {{ form_widget(form.category) }}
+            {{ form_errors(form.category) }}
+        </div>
+
         <div class="form__actions">
             <button class="button" type="submit">
                 Save

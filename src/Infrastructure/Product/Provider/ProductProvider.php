@@ -4,6 +4,7 @@ namespace App\Infrastructure\Product\Provider;
 
 use App\Entity\App\Product;
 use App\Infrastructure\Product\Repository\ProductQueryRepository;
+use Doctrine\ORM\EntityNotFoundException;
 
 class ProductProvider
 {
@@ -18,6 +19,11 @@ class ProductProvider
 
     public function findOneById(string $id): Product
     {
-        return $this->queryRepository->find($id);
+        $product = $this->queryRepository->find($id);
+        if (null === $product) {
+            throw new EntityNotFoundException();
+        }
+
+        return $product;
     }
 }

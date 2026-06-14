@@ -7,7 +7,6 @@ use App\Entity\Embeddable\Money;
 use App\Infrastructure\Product\Handler\ProductCreate;
 use App\Infrastructure\Product\Handler\ProductUpdate;
 use App\Infrastructure\Product\Provider\ProductProvider;
-use App\Infrastructure\Product\Repository\ProductRepository;
 use App\UI\Product\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
