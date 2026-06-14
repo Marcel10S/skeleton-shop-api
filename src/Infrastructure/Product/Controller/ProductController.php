@@ -4,6 +4,7 @@ namespace App\Infrastructure\Product\Controller;
 
 use App\Entity\App\Product;
 use App\Entity\Embeddable\Money;
+use App\Infrastructure\Category\Provider\CategoryProvider;
 use App\Infrastructure\Product\Handler\ProductCreate;
 use App\Infrastructure\Product\Handler\ProductRemove;
 use App\Infrastructure\Product\Handler\ProductUpdate;
@@ -39,11 +40,12 @@ class ProductController extends AbstractController
     }
 
     #[Route('', name: 'create', methods: ['POST'])]
-    public function create(Request $request, ProductCreate $handler): JsonResponse
+    public function create(Request $request, ProductCreate $handler, CategoryProvider $categoryProvider): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
         $product = new Product(
+            $categoryProvider->findOneById($data['category']),
             $data['name'],
             $data['stock'],
             new Money($data['amount'], $data['currency']),
@@ -55,11 +57,12 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
-    public function update(string $id, Request $request, ProductUpdate $handler): JsonResponse
+    public function update(string $id, Request $request, ProductUpdate $handler, CategoryProvider $categoryProvider): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $product = $this->productProvider->findOneById($id);
 
+        $product->setCategory($categoryProvider->findOneById($data['category']),);
         $product->setName($data['name']);
         $product->setStock($data['stock']);
         $product->setPrice(new Money($data['amount'], $data['currency']));

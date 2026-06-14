@@ -21,6 +21,12 @@ class Product extends BaseEntity
     private Money $price;
 
     public function __construct(
+        #[ORM\ManyToOne(
+            targetEntity: Category::class,
+            inversedBy: 'products'
+        )]
+        #[ORM\JoinColumn(nullable: false)]
+        private Category $category,
         #[ORM\Column(type: 'string', length: 255)]
         private string $name,
         #[ORM\Column(type: 'integer')]
@@ -31,6 +37,18 @@ class Product extends BaseEntity
         parent::__construct();
 
         $this->price = $price;
+    }
+
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
     }
 
     public function getName(): string

@@ -2,9 +2,11 @@
 
 namespace App\UI\Product\Form;
 
+use App\Entity\App\Category;
 use App\Entity\App\Product;
 use App\UI\Shared\Form\MoneyType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -17,6 +19,11 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Choose category',
+            ])
             ->add('name', TextType::class)
             ->add('description', TextareaType::class, [
                 'required' => false,
