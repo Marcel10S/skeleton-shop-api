@@ -3,7 +3,7 @@
 namespace App\UI\Product\Form;
 
 use App\Entity\App\Category;
-use App\Entity\App\Product;
+use App\Infrastructure\Product\DTO\ProductFormDTO;
 use App\UI\Shared\Form\MoneyType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -38,7 +38,7 @@ class ProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Product::class,
+            'data_class' => ProductFormDTO::class,
         ]);
     }
 }

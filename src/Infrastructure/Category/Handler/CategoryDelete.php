@@ -12,7 +12,7 @@ class CategoryDelete
     ) {
     }
 
-    public function handle(Category $category): void
+    public function delete(Category $category): void
     {
         $this->repository->delete($category);
     }

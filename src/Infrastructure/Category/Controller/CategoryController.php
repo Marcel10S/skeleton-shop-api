@@ -42,12 +42,17 @@ class CategoryController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
+        if (!empty($data['parent_id'])) {
+            $parent = $this->categoryProvider->findOneById($data['parent_id']);
+        }
+
         $category = new Category(
             $data['name'],
             $data['description'],
+            $parent ?? null,
         );
 
-        $handler->handle($category);
+        $handler->create($category);
         return $this->json($category, 201);
     }
 
@@ -57,10 +62,14 @@ class CategoryController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $category = $this->categoryProvider->findOneById($id);
 
+        if (!empty($data['parent_id'])) {
+            $category->setParent($this->categoryProvider->findOneById($data['parent_id']));
+        }
+
         $category->setName($data['name']);
         $category->setDescription($data['description']);
 
-        $handler->handle($category);
+        $handler->update($category);
         return $this->json($category);
     }
 
@@ -68,7 +77,7 @@ class CategoryController extends AbstractController
     public function delete(string $id, CategoryDelete $handler): JsonResponse
     {
         $category = $this->categoryProvider->findOneById($id);
-        $handler->handle($category);
+        $handler->delete($category);
 
         return $this->json(null, 204);
     }
