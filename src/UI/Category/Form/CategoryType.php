@@ -1,6 +1,9 @@
 <?php
 
+namespace App\UI\Category\Form;
+
 use App\Entity\App\Category;
+use App\Infrastructure\Category\DTO\CategoryFormDTO;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -31,7 +34,7 @@ class CategoryType extends AbstractType
         OptionsResolver $resolver
     ): void {
         $resolver->setDefaults([
-            'data_class' => Category::class,
+            'data_class' => CategoryFormDTO::class,
         ]);
     }
 }
