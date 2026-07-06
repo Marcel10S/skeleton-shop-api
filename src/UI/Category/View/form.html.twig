@@ -1,0 +1,47 @@
+{% extends '@ui/Base/View/base.html.twig' %}
+
+{% block title %}Category Form{% endblock %}
+
+{% block body %}
+
+    <div class="form-page">
+
+        <h1 class="form-page__title">
+            Category form
+        </h1>
+
+        {{ form_start(form, { attr: { class: 'form' } }) }}
+
+        <div class="form__group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+
+        <div class="form__group">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="form__group">
+            {{ form_label(form.parent) }}
+            {{ form_widget(form.parent) }}
+            {{ form_errors(form.parent) }}
+        </div>
+
+        <div class="form__actions">
+            <button class="button" type="submit">
+                Save
+            </button>
+
+            <a href="{{ path('shop_categories_list') }}" class="button button--secondary">
+                Cancel
+            </a>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

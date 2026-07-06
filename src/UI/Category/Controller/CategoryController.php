@@ -8,6 +8,7 @@ use App\Infrastructure\Category\DTO\CategoryFormDTO;
 use App\Infrastructure\Category\Handler\CategoryCreate;
 use App\Infrastructure\Category\Handler\CategoryDelete;
 use App\Infrastructure\Category\Handler\CategoryUpdate;
+use App\Infrastructure\Category\Provider\CategoryProvider;
 use App\Infrastructure\Product\Provider\ProductProvider;
 use App\UI\Category\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,12 +68,10 @@ class CategoryController extends AbstractController
     }
 
     #[Route('', name: 'list')]
-    public function list(ProductProvider $provider): Response
+    public function list(CategoryProvider $provider): Response
     {
-        $categories = $provider->findAll();
-
         return $this->render('@ui/Category/View/list.html.twig', [
-            'categories' => $categories,
+            'tree' => $provider->findAllInTree(),
         ]);
     }
 
