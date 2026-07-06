@@ -1,0 +1,31 @@
+<tr>
+    <td style="padding-left: {{ node.depth * 24 }}px">
+
+        {% if node.children|length %}
+            ▼
+        {% endif %}
+
+        {{ node.category.name }}
+
+    </td>
+
+    <td>
+        {{ node.category.products|length }}
+    </td>
+
+    <td>
+
+        <a href="{{ path('shop_categories_edit', {id: node.category.id}) }}">
+            Edit
+        </a>
+
+    </td>
+
+</tr>
+
+{% for child in node.children %}
+
+    {% include '@ui/Category/View/category_tree_node.html.twig'
+        with { node: child } %}
+
+{% endfor %}

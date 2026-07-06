@@ -4,7 +4,7 @@ namespace App\Infrastructure\Product\Handler;
 
 use App\Entity\App\Product;
 use App\Infrastructure\Product\Repository\ProductRepository;
-use App\UI\Product\Form\ProductFormDTO;
+use App\Infrastructure\Product\DTO\ProductFormDTO;
 
 class ProductCreate
 {

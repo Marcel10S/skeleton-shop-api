@@ -1,0 +1,32 @@
+{% extends '@ui/Base/View/base.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h1 class="page-header__title">Categories</h1>
+
+        <a href="{{ path('shop_categories_create') }}" class="button">
+            + Add category
+        </a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Products</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for node in tree %}
+                {% include '@ui/Category/View/category_tree_node.html.twig'
+                    with { node: node } %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
