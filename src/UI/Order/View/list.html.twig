@@ -24,6 +24,7 @@
                         {% for item in order.items %}
                             <div>{{ item.productName }} × {{ item.quantity }}</div>
                         {% endfor %}
+                        <strong>Łącznie w walucie domyślnej: {{ order.totalInDefaultCurrency|money_amount }}</strong>
                     </td>
                     <td>
                         {% for currency, amount in order.totalsByCurrency %}

@@ -1,0 +1,39 @@
+{% extends '@ui/Base/View/base.html.twig' %}
+
+{% block title %}Waluty{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h1 class="page-header__title">Waluty</h1>
+        <a href="{{ path('shop_currencies_create') }}" class="button">+ Dodaj walutę</a>
+    </div>
+
+    <p class="currency-form__hint">Wybierz jedną walutę domyślną i podaj kurs każdej waluty względem niej.</p>
+
+    {{ form_start(form, { attr: { class: 'currency-settings' } }) }}
+        <div class="currency-settings__default">
+            {{ form_label(form.defaultCurrencyCode) }}
+            {{ form_widget(form.defaultCurrencyCode) }}
+            {{ form_errors(form.defaultCurrencyCode) }}
+        </div>
+
+        <div class="currency-settings__rates">
+            {% for rate in form.rates %}
+                <div class="currency-settings__rate">
+                    {{ form_widget(rate.code) }}
+                    {{ form_widget(rate.name) }}
+                    <div>
+                        {{ form_label(rate.rateToDefaultCurrency) }}
+                        {{ form_widget(rate.rateToDefaultCurrency) }}
+                        {{ form_errors(rate.rateToDefaultCurrency) }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {{ form_errors(form.rates) }}
+
+        <div class="form__actions">
+            <button type="submit" class="button">Zapisz konfigurację</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
