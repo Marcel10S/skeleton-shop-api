@@ -1,6 +1,34 @@
 {% extends '@ui/Base/View/base.html.twig' %}
 
+{% block title %}Panel zarządzania{% endblock %}
+
 {% block body %}
-    <h1>Witam w sklepie, strona w produkcji</h1>
-    <p>W przyszłości będą tutaj najfajniejsze produkty w ofercie.</p>
+    <section class="manager-home">
+        <p class="manager-home__eyebrow">Panel zarządzania</p>
+        <h1 class="manager-home__title">Zarządzaj swoim sklepem internetowym</h1>
+        <p class="manager-home__intro">
+            W tym miejscu możesz prowadzić katalog produktów, organizować kategorie
+            oraz tworzyć i przeglądać zamówienia.
+        </p>
+
+        <div class="manager-home__actions">
+            <a href="{{ path('shop_products_list') }}" class="button">Przejdź do produktów</a>
+            <a href="{{ path('shop_orders_list') }}" class="button button--secondary">Zobacz zamówienia</a>
+        </div>
+
+        <div class="manager-home__features">
+            <article class="manager-home__feature">
+                <h2>Produkty</h2>
+                <p>Dodawaj, edytuj i kontroluj dostępność produktów w ofercie.</p>
+            </article>
+            <article class="manager-home__feature">
+                <h2>Kategorie</h2>
+                <p>Porządkuj produkty w przejrzystej, wielopoziomowej strukturze.</p>
+            </article>
+            <article class="manager-home__feature">
+                <h2>Zamówienia</h2>
+                <p>Twórz zamówienia z wielu produktów i sprawdzaj sumy według walut.</p>
+            </article>
+        </div>
+    </section>
 {% endblock %}

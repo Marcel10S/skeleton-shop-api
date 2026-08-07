@@ -1,0 +1,15 @@
+<div class="order-form__item" data-order-item>
+    <div class="form__group">
+        {{ form_label(item.product) }}
+        {{ form_widget(item.product) }}
+        {{ form_errors(item.product) }}
+    </div>
+
+    <div class="form__group">
+        {{ form_label(item.quantity) }}
+        {{ form_widget(item.quantity) }}
+        {{ form_errors(item.quantity) }}
+    </div>
+
+    <button type="button" class="button button--secondary" data-order-item-remove>Remove</button>
+</div>
