@@ -53,3 +53,24 @@ if (categoryTree) {
         }
     });
 }
+
+const orderForm = document.querySelector('[data-order-form]');
+
+if (orderForm) {
+    const items = orderForm.querySelector('[data-order-items]');
+
+    orderForm.addEventListener('click', (event) => {
+        if (event.target.closest('[data-order-item-add]')) {
+            const index = Number(items.dataset.index);
+            const item = items.dataset.prototype.replace(/__name__/g, index);
+
+            items.insertAdjacentHTML('beforeend', item);
+            items.dataset.index = String(index + 1);
+        }
+
+        const removeButton = event.target.closest('[data-order-item-remove]');
+        if (removeButton) {
+            removeButton.closest('[data-order-item]').remove();
+        }
+    });
+}

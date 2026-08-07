@@ -1,0 +1,39 @@
+{% extends '@ui/Base/View/base.html.twig' %}
+
+{% block title %}Orders{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h1 class="page-header__title">Orders</h1>
+        <a href="{{ path('shop_orders_create') }}" class="button">+ Add order</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Created</th>
+                <th>Products</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.createdAt|date('Y-m-d H:i') }}</td>
+                    <td>
+                        {% for item in order.items %}
+                            <div>{{ item.productName }} × {{ item.quantity }}</div>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for currency, amount in order.totalsByCurrency %}
+                            <div>{{ amount|money_amount }} {{ currency|money_currency }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3">No orders found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
