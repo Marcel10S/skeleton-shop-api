@@ -1,0 +1,28 @@
+{% extends '@ui/Base/View/base.html.twig' %}
+
+{% block title %}Waluta{% endblock %}
+
+{% block body %}
+    <div class="form-page">
+        <h1 class="form-page__title">Waluta</h1>
+        <p class="currency-form__hint">Po zapisaniu przejdziesz do konfiguracji kursów i wyboru waluty domyślnej.</p>
+
+        {{ form_start(form, { attr: { class: 'form' } }) }}
+        <div class="form__group">
+            {{ form_label(form.code) }}
+            {{ form_widget(form.code) }}
+            {{ form_errors(form.code) }}
+        </div>
+        <div class="form__group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+
+        <div class="form__actions">
+            <button class="button" type="submit">Zapisz</button>
+            <a href="{{ path('shop_currencies_list') }}" class="button button--secondary">Anuluj</a>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

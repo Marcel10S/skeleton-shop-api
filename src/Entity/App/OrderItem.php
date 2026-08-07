@@ -25,6 +25,8 @@ class OrderItem extends BaseEntity
         private int $unitAmount,
         #[ORM\Column(length: 3)]
         private string $currency,
+        #[ORM\Column]
+        private int $rateToDefaultCurrency,
     ) {
         parent::__construct();
     }
@@ -66,5 +68,10 @@ class OrderItem extends BaseEntity
     public function getTotalAmount(): int
     {
         return $this->unitAmount * $this->quantity;
+    }
+
+    public function getTotalInDefaultCurrency(): int
+    {
+        return (int) round($this->getTotalAmount() * $this->rateToDefaultCurrency / 100);
     }
 }

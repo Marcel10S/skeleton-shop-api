@@ -62,4 +62,12 @@ class Order extends BaseEntity
 
         return $totals;
     }
+
+    public function getTotalInDefaultCurrency(): int
+    {
+        return $this->items->reduce(
+            static fn (int $total, OrderItem $item): int => $total + $item->getTotalInDefaultCurrency(),
+            0,
+        );
+    }
 }

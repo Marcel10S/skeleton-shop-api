@@ -7,6 +7,10 @@ use Symfony\Component\Form\DataTransformerInterface;
 
 class MoneyTransformer implements DataTransformerInterface
 {
+    public function __construct(private readonly AmountParser $amountParser)
+    {
+    }
+
     public function transform($value): array
     {
         if (!$value instanceof Money) {
@@ -14,16 +18,24 @@ class MoneyTransformer implements DataTransformerInterface
         }
 
         return [
-            'amount' => number_format($value->getAmount() / 100, 2, '.', ''),
+            'amount' => $this->amountParser->formatMinorUnits($value->getAmount()),
             'currency' => $value->getCurrency(),
         ];
     }
 
     public function reverseTransform($value): Money
     {
-        return new Money(
-            (int) round(((float) $value['amount']) * 100),
-            (string) $value['currency']
-        );
+        try {
+            return new Money(
+                $this->amountParser->parseToMinorUnits($value['amount']),
+                (string) $value['currency']
+            );
+        } catch (\InvalidArgumentException $exception) {
+            throw new \Symfony\Component\Form\Exception\TransformationFailedException(
+                $exception->getMessage(),
+                0,
+                $exception,
+            );
+        }
     }
 }
