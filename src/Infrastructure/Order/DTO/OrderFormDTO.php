@@ -13,8 +13,12 @@ class OrderFormDTO
     #[Assert\Valid]
     public array $items;
 
+    #[Assert\Valid]
+    public DeliveryFormDTO $delivery;
+
     public function __construct()
     {
         $this->items = [new OrderItemDTO()];
+        $this->delivery = new DeliveryFormDTO();
     }
 }

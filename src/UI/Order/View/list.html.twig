@@ -13,6 +13,7 @@
             <tr>
                 <th>Created</th>
                 <th>Products</th>
+                <th>Delivery</th>
                 <th>Total</th>
             </tr>
         </thead>
@@ -24,16 +25,30 @@
                         {% for item in order.items %}
                             <div>{{ item.productName }} × {{ item.quantity }}</div>
                         {% endfor %}
-                        <strong>Łącznie w walucie domyślnej: {{ order.totalInDefaultCurrency|money_amount }}</strong>
+                    </td>
+                    <td>
+                        {% if order.delivery %}
+                            <strong>{{ order.delivery.courier|upper }}</strong><br>
+                            {{ order.delivery.recipientName }}<br>
+                            {{ order.delivery.addressLine }}<br>
+                            {{ order.delivery.postalCode }} {{ order.delivery.city }}
+                        {% else %}
+                            —
+                        {% endif %}
                     </td>
                     <td>
                         {% for currency, amount in order.totalsByCurrency %}
                             <div>{{ amount|money_amount }} {{ currency|money_currency }}</div>
                         {% endfor %}
+                        <strong>
+                            Łącznie w walucie domyślnej:
+                            {{ order.totalInDefaultCurrency|money_amount }}
+                            {{ defaultCurrency.code|money_currency }}
+                        </strong>
                     </td>
                 </tr>
             {% else %}
-                <tr><td colspan="3">No orders found.</td></tr>
+                <tr><td colspan="4">No orders found.</td></tr>
             {% endfor %}
         </tbody>
     </table>

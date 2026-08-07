@@ -7,6 +7,7 @@ namespace App\UI\Order\Controller;
 use App\Infrastructure\Order\DTO\OrderFormDTO;
 use App\Infrastructure\Order\Handler\OrderCreate;
 use App\Infrastructure\Order\Provider\OrderProvider;
+use App\Infrastructure\Currency\Provider\CurrencyProvider;
 use App\UI\Order\Form\OrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,10 +35,13 @@ class OrderController extends AbstractController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(OrderProvider $provider): Response
+    public function list(OrderProvider $provider, CurrencyProvider $currencyProvider): Response
     {
         $orders = $provider->findAll();
 
-        return $this->render('@ui/Order/View/list.html.twig', ['orders' => $orders]);
+        return $this->render('@ui/Order/View/list.html.twig', [
+            'orders' => $orders,
+            'defaultCurrency' => $currencyProvider->findDefault(),
+        ]);
     }
 }

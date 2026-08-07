@@ -6,6 +6,7 @@ namespace App\Infrastructure\Order\Handler;
 
 use App\Entity\App\Order;
 use App\Entity\App\OrderItem;
+use App\Entity\App\Delivery;
 use App\Infrastructure\Currency\Provider\CurrencyProvider;
 use App\Infrastructure\Order\DTO\OrderFormDTO;
 use App\Infrastructure\Order\Repository\OrderRepository;
@@ -37,6 +38,14 @@ class OrderCreate
                 rateToDefaultCurrency: $currency->getRateToDefaultCurrency(),
             ));
         }
+
+        $order->setDelivery(new Delivery(
+            courier: $dto->delivery->courier,
+            recipientName: $dto->delivery->recipientName,
+            addressLine: $dto->delivery->addressLine,
+            postalCode: $dto->delivery->postalCode,
+            city: $dto->delivery->city,
+        ));
 
         $this->repository->save($order);
     }

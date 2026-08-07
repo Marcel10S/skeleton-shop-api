@@ -35,6 +35,6 @@ class MoneyExtension extends AbstractExtension
                 return 'zł';
         };
 
-        return '';
+        return $currency;
     }
 }
