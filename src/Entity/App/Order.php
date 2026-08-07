@@ -17,6 +17,9 @@ class Order extends BaseEntity
     #[ORM\OneToMany(mappedBy: 'order', targetEntity: OrderItem::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $items;
 
+    #[ORM\OneToOne(mappedBy: 'order', targetEntity: Delivery::class, cascade: ['persist'], orphanRemoval: true)]
+    private ?Delivery $delivery = null;
+
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
@@ -47,6 +50,19 @@ class Order extends BaseEntity
         }
 
         return $this;
+    }
+
+    public function setDelivery(Delivery $delivery): self
+    {
+        $this->delivery = $delivery;
+        $delivery->setOrder($this);
+
+        return $this;
+    }
+
+    public function getDelivery(): ?Delivery
+    {
+        return $this->delivery;
     }
 
     /** @return array<string, int> Amounts, in minor units, grouped by currency. */

@@ -30,4 +30,15 @@ class CurrencyProvider
 
         return $currency;
     }
+
+    public function findDefault(): Currency
+    {
+        $currency = $this->queryRepository->findDefault();
+
+        if ($currency === null) {
+            throw new EntityNotFoundException('Default currency was not found.');
+        }
+
+        return $currency;
+    }
 }

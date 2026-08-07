@@ -25,6 +25,39 @@
 
         <button type="button" class="button button--secondary" data-order-item-add>Add product</button>
 
+        <section class="delivery-form">
+            <h2 class="delivery-form__title">Dostawa</h2>
+            <p class="delivery-form__hint">Wybierz kuriera oraz podaj adres, na który ma zostać doręczone zamówienie.</p>
+
+            <div class="form__group">
+                {{ form_label(form.delivery.courier) }}
+                {{ form_widget(form.delivery.courier) }}
+                {{ form_errors(form.delivery.courier) }}
+            </div>
+            <div class="form__group">
+                {{ form_label(form.delivery.recipientName) }}
+                {{ form_widget(form.delivery.recipientName) }}
+                {{ form_errors(form.delivery.recipientName) }}
+            </div>
+            <div class="form__group">
+                {{ form_label(form.delivery.addressLine) }}
+                {{ form_widget(form.delivery.addressLine) }}
+                {{ form_errors(form.delivery.addressLine) }}
+            </div>
+            <div class="delivery-form__address-row">
+                <div class="form__group">
+                    {{ form_label(form.delivery.postalCode) }}
+                    {{ form_widget(form.delivery.postalCode) }}
+                    {{ form_errors(form.delivery.postalCode) }}
+                </div>
+                <div class="form__group">
+                    {{ form_label(form.delivery.city) }}
+                    {{ form_widget(form.delivery.city) }}
+                    {{ form_errors(form.delivery.city) }}
+                </div>
+            </div>
+        </section>
+
         <div class="form__actions">
             <button class="button" type="submit">Create order</button>
             <a href="{{ path('shop_orders_list') }}" class="button button--secondary">Cancel</a>

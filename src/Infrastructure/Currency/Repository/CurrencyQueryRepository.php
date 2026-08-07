@@ -29,4 +29,9 @@ class CurrencyQueryRepository extends ServiceEntityRepository
     {
         return $this->findOneBy(['code' => strtoupper($code)]);
     }
+
+    public function findDefault(): ?Currency
+    {
+        return $this->findOneBy(['isDefault' => true]);
+    }
 }

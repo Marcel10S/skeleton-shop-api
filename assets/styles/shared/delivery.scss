@@ -1,0 +1,28 @@
+.delivery-form {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    background: #f8fafc;
+
+    &__title {
+        margin: 0;
+        font-size: 1.25rem;
+    }
+
+    &__hint {
+        margin: 0.25rem 0 1.25rem;
+        color: #64748b;
+    }
+
+    &__address-row {
+        display: grid;
+        grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+        gap: 1rem;
+
+        @media (max-width: 640px) {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+    }
+}
