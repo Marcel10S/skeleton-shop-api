@@ -20,6 +20,7 @@ class ProductCreate
             stock: $dto->stock,
             price: $dto->price
         );
+        $product->setDescription($dto->description);
 
         $this->create($product);
     }

@@ -1,11 +1,23 @@
-<tr>
-    <td style="padding-left: {{ node.depth * 24 }}px">
+<tr
+    data-category-row
+    data-category-id="{{ node.category.id }}"
+    {% if parentId is defined %}data-parent-id="{{ parentId }}"{% endif %}
+>
+    <td class="category-tree__name" style="--category-depth: {{ node.depth }}">
 
         {% if node.children|length %}
-            ▼
+            <button
+                class="category-tree__toggle"
+                type="button"
+                data-category-toggle="{{ node.category.id }}"
+                aria-expanded="true"
+                aria-label="Collapse category"
+            ></button>
+        {% else %}
+            <span class="category-tree__spacer" aria-hidden="true"></span>
         {% endif %}
 
-        {{ node.category.name }}
+        <span class="category-tree__category-name">{{ node.category.name }}</span>
 
     </td>
 
@@ -15,7 +27,7 @@
 
     <td>
 
-        <a href="{{ path('shop_categories_edit', {id: node.category.id}) }}">
+        <a class="category-tree__edit-link" href="{{ path('shop_categories_edit', {id: node.category.id}) }}">
             Edit
         </a>
 
@@ -26,6 +38,6 @@
 {% for child in node.children %}
 
     {% include '@ui/Category/View/category_tree_node.html.twig'
-        with { node: child } %}
+        with { node: child, parentId: node.category.id } %}
 
 {% endfor %}

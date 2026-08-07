@@ -9,13 +9,34 @@
 @import "shared/buttons";
 @import "shared/tables";
 @import "shared/form";
+@import "shared/category-tree";
 
 body {
-    background: #f5f5f5;
+    background: #f8fafc;
+    color: #1f2937;
     margin: 0;
+    line-height: 1.5;
 }
 
 * {
     font-family: 'Roboto', Arial, sans-serif;
     box-sizing: border-box;
+}
+
+.main {
+    padding: 2rem 0 3rem;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    &__title {
+        margin: 0;
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
 }
