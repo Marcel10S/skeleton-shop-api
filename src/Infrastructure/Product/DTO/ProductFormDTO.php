@@ -10,7 +10,7 @@ class ProductFormDTO
 {
     public ?Category $category = null;
     public string $name = '';
-    public string $description = '';
+    public ?string $description = '';
     public int $stock = 0;
     public ?Money $price = null;
     public bool $isActive = false;
@@ -21,7 +21,7 @@ class ProductFormDTO
 
         $dto->category = $product->getCategory();
         $dto->name = $product->getName();
-        $dto->description = $product->getDescription();
+        $dto->description = $product->getDescription() ?? null;
         $dto->stock = $product->getStock();
         $dto->price = new Money(
             $product->getPrice()->getAmount(),

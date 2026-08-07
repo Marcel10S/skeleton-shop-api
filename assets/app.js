@@ -1,4 +1,3 @@
-import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -7,4 +6,50 @@ import './bootstrap.js';
  */
 import './styles/app.scss';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+const categoryTree = document.querySelector('[data-category-tree]');
+
+if (categoryTree) {
+    const getChildren = (categoryId) => Array.from(
+        categoryTree.querySelectorAll(`[data-parent-id="${categoryId}"]`),
+    );
+
+    const setDescendantsHidden = (categoryId, hidden) => {
+        getChildren(categoryId).forEach((row) => {
+            row.hidden = hidden;
+            setDescendantsHidden(row.dataset.categoryId, hidden);
+        });
+    };
+
+    const revealExpandedDescendants = (categoryId) => {
+        getChildren(categoryId).forEach((row) => {
+            row.hidden = false;
+
+            const toggle = row.querySelector('[data-category-toggle]');
+            if (toggle && toggle.getAttribute('aria-expanded') === 'true') {
+                revealExpandedDescendants(row.dataset.categoryId);
+            } else {
+                setDescendantsHidden(row.dataset.categoryId, true);
+            }
+        });
+    };
+
+    categoryTree.addEventListener('click', (event) => {
+        const button = event.target.closest('[data-category-toggle]');
+
+        if (!button) {
+            return;
+        }
+
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        const categoryId = button.dataset.categoryToggle;
+
+        button.setAttribute('aria-expanded', String(!expanded));
+        button.setAttribute('aria-label', expanded ? 'Expand category' : 'Collapse category');
+
+        if (expanded) {
+            setDescendantsHidden(categoryId, true);
+        } else {
+            revealExpandedDescendants(categoryId);
+        }
+    });
+}
