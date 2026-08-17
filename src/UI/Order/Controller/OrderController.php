@@ -6,6 +6,7 @@ namespace App\UI\Order\Controller;
 
 use App\Infrastructure\Order\DTO\OrderFormDTO;
 use App\Infrastructure\Order\Handler\OrderCreate;
+use App\Infrastructure\Order\Exception\OutOfStockException;
 use App\Infrastructure\Order\Provider\OrderProvider;
 use App\Infrastructure\Currency\Provider\CurrencyProvider;
 use App\UI\Order\Form\OrderType;
@@ -26,9 +27,12 @@ class OrderController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $handler->createByDTO($form->getData());
-
-            return $this->redirectToRoute('shop_orders_list');
+            try {
+                $handler->createByDTO($form->getData());
+                return $this->redirectToRoute('shop_orders_list');
+            } catch (OutOfStockException $exception) {
+                $this->addFlash('error', $exception->getMessage());
+            }
         }
 
         return $this->render('@ui/Order/View/form.html.twig', ['form' => $form->createView()]);

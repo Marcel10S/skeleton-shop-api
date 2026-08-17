@@ -1,25 +1,25 @@
 {% extends '@ui/Base/View/base.html.twig' %}
 
-{% block title %}Products{% endblock %}
+{% block title %}Produkty{% endblock %}
 
 {% block body %}
 
     <div class="page-header">
-        <h1 class="page-header__title">Products</h1>
+        <h1 class="page-header__title">Produkty</h1>
 
         <a href="{{ path('shop_products_create') }}" class="button">
-            + Add product
+            + Dodaj produkt
         </a>
     </div>
 
     <table class="table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Active</th>
-            <th>Category</th>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Stan</th>
+            <th>Aktywny</th>
+            <th>Kategoria</th>
             <th></th>
         </tr>
         </thead>
@@ -37,7 +37,7 @@
                 <td>{{ product.stock }}</td>
 
                 <td>
-                    {{ product.isActive ? 'Yes' : 'No' }}
+                    {{ product.isActive ? 'Tak' : 'Nie' }}
                 </td>
 
                 <td>
@@ -46,14 +46,14 @@
 
                 <td class="table__actions">
                     <a href="{{ path('shop_products_edit', { id: product.id }) }}" class="button">
-                        Edit
+                        Edytuj
                     </a>
 
                     <form
                         method="post"
                         action="{{ path('shop_products_delete', { id: product.id }) }}"
                         style="display:inline"
-                        onsubmit="return confirm('Delete product {{ product.name }}?');"
+                            onsubmit="return confirm('Usunąć produkt {{ product.name }}?');"
                     >
                         <input
                             type="hidden"
@@ -65,7 +65,7 @@
                             type="submit"
                             class="button button--danger"
                         >
-                            Delete
+                            Usuń
                         </button>
                     </form>
 
@@ -73,7 +73,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">No products found</td>
+                <td colspan="6">Brak produktów.</td>
             </tr>
         {% endfor %}
         </tbody>

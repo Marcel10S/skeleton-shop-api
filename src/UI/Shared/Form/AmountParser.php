@@ -11,7 +11,7 @@ final class AmountParser
         $value = str_replace(',', '.', trim((string) $value));
 
         if (!preg_match('/^(\d+)(?:\.(\d{1,2}))?$/', $value, $matches)) {
-            throw new \InvalidArgumentException('Enter an amount with no more than two decimal places.');
+            throw new \InvalidArgumentException('Podaj kwotę z maksymalnie dwoma miejscami po przecinku.');
         }
 
         return ((int) $matches[1] * 100) + (int) str_pad($matches[2] ?? '', 2, '0');

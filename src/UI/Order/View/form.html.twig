@@ -1,11 +1,11 @@
 {% extends '@ui/Base/View/base.html.twig' %}
 
-{% block title %}New order{% endblock %}
+{% block title %}Nowe zamówienie{% endblock %}
 
 {% block body %}
     <div class="form-page">
         <div class="page-header">
-            <h1 class="page-header__title">New order</h1>
+            <h1 class="page-header__title">Nowe zamówienie</h1>
         </div>
 
         {{ form_start(form, { attr: { class: 'form order-form', 'data-order-form': true } }) }}
@@ -23,7 +23,16 @@
 
         {{ form_errors(form.items) }}
 
-        <button type="button" class="button button--secondary" data-order-item-add>Add product</button>
+        <button type="button" class="button button--secondary" data-order-item-add>Dodaj produkt</button>
+
+        <section class="delivery-form">
+            <h2 class="delivery-form__title">Płatność</h2>
+            <div class="form__group">
+                {{ form_label(form.paymentMethod) }}
+                {{ form_widget(form.paymentMethod) }}
+                {{ form_errors(form.paymentMethod) }}
+            </div>
+        </section>
 
         <section class="delivery-form">
             <h2 class="delivery-form__title">Dostawa</h2>
@@ -59,8 +68,8 @@
         </section>
 
         <div class="form__actions">
-            <button class="button" type="submit">Create order</button>
-            <a href="{{ path('shop_orders_list') }}" class="button button--secondary">Cancel</a>
+            <button class="button" type="submit">Utwórz zamówienie</button>
+            <a href="{{ path('shop_orders_list') }}" class="button button--secondary">Anuluj</a>
         </div>
 
         {{ form_end(form) }}

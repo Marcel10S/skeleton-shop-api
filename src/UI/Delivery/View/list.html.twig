@@ -1,0 +1,17 @@
+{% extends '@ui/Base/View/base.html.twig' %}
+
+{% block title %}Formy dostawy{% endblock %}
+
+{% block body %}
+    <div class="page-header"><h1 class="page-header__title">Formy dostawy</h1></div>
+    <table class="table">
+        <thead><tr><th>Nazwa</th><th>Kod</th></tr></thead>
+        <tbody>
+            {% for name, code in deliveryMethods %}
+                <tr><td>{{ name }}</td><td>{{ code }}</td></tr>
+            {% else %}
+                <tr><td colspan="2">Brak dostępnych form dostawy.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

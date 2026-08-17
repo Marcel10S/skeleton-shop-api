@@ -9,13 +9,19 @@
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
-    <title>Welcome</title>
+    <title>{% block title %}Marcel Sklep{% endblock %}</title>
 </head>
 <body>
     <div class="page">
         {% include '@ui/Base/View/header.html.twig' %}
         <main class="main">
             <div class="layout-container">
+                {% for message in app.flashes('success') %}
+                    <div class="flash flash--success">{{ message }}</div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="flash flash--error">{{ message }}</div>
+                {% endfor %}
                 {% block body %}{% endblock %}
             </div>
         </main>

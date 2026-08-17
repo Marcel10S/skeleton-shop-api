@@ -88,7 +88,7 @@ class ProductController extends AbstractController
 
         $handler->remove($product);
 
-        $this->addFlash('success', 'Product deleted.');
+        $this->addFlash('success', 'Produkt został usunięty.');
         return $this->redirectToRoute('shop_products_list');
     }
 }

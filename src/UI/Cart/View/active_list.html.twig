@@ -1,0 +1,22 @@
+{% extends '@ui/Base/View/base.html.twig' %}
+
+{% block title %}Aktywne koszyki{% endblock %}
+
+{% block body %}
+    <div class="page-header"><h1 class="page-header__title">Aktywne koszyki</h1></div>
+    <table class="table">
+        <thead><tr><th>Identyfikator</th><th>Produkty</th><th>Wybrana płatność</th><th>Wybrana dostawa</th></tr></thead>
+        <tbody>
+            {% for cart in carts %}
+                <tr>
+                    <td>{{ cart.token|slice(0, 12) }}…</td>
+                    <td>{% for item in cart.items %}<div>{{ item.product.name }} × {{ item.quantity }}</div>{% endfor %}</td>
+                    <td>{{ cart.paymentMethod ? cart.paymentMethod.name : 'Nie wybrano' }}</td>
+                    <td>{{ cart.courier ? cart.courier|upper : 'Nie wybrano' }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="4">Brak aktywnych koszyków.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

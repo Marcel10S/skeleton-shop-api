@@ -91,7 +91,7 @@ class CategoryController extends AbstractController
 
         $handler->delete($category);
 
-        $this->addFlash('success', 'Category deleted.');
+        $this->addFlash('success', 'Kategoria została usunięta.');
         return $this->redirectToRoute('shop_category_list');
     }
 }

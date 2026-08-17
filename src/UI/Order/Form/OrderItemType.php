@@ -25,9 +25,11 @@ class OrderItemType extends AbstractType
                     number_format($product->getPrice()->getAmount() / 100, 2, '.', ''),
                     $product->getPrice()->getCurrency(),
                 ),
-                'placeholder' => 'Choose product',
+                'label' => 'Produkt',
+                'placeholder' => 'Wybierz produkt',
             ])
             ->add('quantity', IntegerType::class, [
+                'label' => 'Ilość',
                 'attr' => ['min' => 1],
             ]);
     }

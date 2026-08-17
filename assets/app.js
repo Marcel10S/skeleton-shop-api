@@ -44,7 +44,7 @@ if (categoryTree) {
         const categoryId = button.dataset.categoryToggle;
 
         button.setAttribute('aria-expanded', String(!expanded));
-        button.setAttribute('aria-label', expanded ? 'Expand category' : 'Collapse category');
+        button.setAttribute('aria-label', expanded ? 'Rozwiń kategorię' : 'Zwiń kategorię');
 
         if (expanded) {
             setDescendantsHidden(categoryId, true);

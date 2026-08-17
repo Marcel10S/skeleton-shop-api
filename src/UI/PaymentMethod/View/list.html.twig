@@ -1,0 +1,28 @@
+{% extends '@ui/Base/View/base.html.twig' %}
+
+{% block title %}Metody płatności{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h1 class="page-header__title">Metody płatności</h1>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Kod</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paymentMethod in paymentMethods %}
+                <tr>
+                    <td>{{ paymentMethod.name }}</td>
+                    <td>{{ paymentMethod.code }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="2">Brak metod płatności.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

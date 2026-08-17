@@ -20,6 +20,16 @@ class Order extends BaseEntity
     #[ORM\OneToOne(mappedBy: 'order', targetEntity: Delivery::class, cascade: ['persist'], orphanRemoval: true)]
     private ?Delivery $delivery = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private PaymentMethod $paymentMethod;
+
+    #[ORM\Column(length: 20)]
+    private string $paymentStatus = self::PAYMENT_STATUS_PENDING;
+
+    public const PAYMENT_STATUS_PENDING = 'pending';
+    public const PAYMENT_STATUS_PAID = 'paid';
+
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
@@ -63,6 +73,30 @@ class Order extends BaseEntity
     public function getDelivery(): ?Delivery
     {
         return $this->delivery;
+    }
+
+    public function setPaymentMethod(PaymentMethod $paymentMethod): self
+    {
+        $this->paymentMethod = $paymentMethod;
+
+        return $this;
+    }
+
+    public function getPaymentMethod(): PaymentMethod
+    {
+        return $this->paymentMethod;
+    }
+
+    public function getPaymentStatus(): string
+    {
+        return $this->paymentStatus;
+    }
+
+    public function setPaymentStatus(string $paymentStatus): self
+    {
+        $this->paymentStatus = $paymentStatus;
+
+        return $this;
     }
 
     /** @return array<string, int> Amounts, in minor units, grouped by currency. */

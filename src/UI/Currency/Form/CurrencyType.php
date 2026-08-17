@@ -16,9 +16,10 @@ class CurrencyType extends AbstractType
     {
         $builder
             ->add('code', TextType::class, [
+                'label' => 'Kod',
                 'attr' => ['maxlength' => 3, 'style' => 'text-transform: uppercase'],
             ])
-            ->add('name', TextType::class);
+            ->add('name', TextType::class, ['label' => 'Nazwa']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

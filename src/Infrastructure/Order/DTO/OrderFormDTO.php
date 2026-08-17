@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Order\DTO;
 
+use App\Entity\App\PaymentMethod;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class OrderFormDTO
@@ -15,6 +16,9 @@ class OrderFormDTO
 
     #[Assert\Valid]
     public DeliveryFormDTO $delivery;
+
+    #[Assert\NotNull]
+    public ?PaymentMethod $paymentMethod = null;
 
     public function __construct()
     {

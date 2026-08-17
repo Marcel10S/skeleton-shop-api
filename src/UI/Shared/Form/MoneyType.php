@@ -22,9 +22,11 @@ class MoneyType extends AbstractType
     {
         $builder
             ->add('amount', NumberType::class, [
+                'label' => 'Kwota',
                 'scale' => 2,
             ])
             ->add('currency', ChoiceType::class, [
+                'label' => 'Waluta',
                 'choices' => $this->getCurrencyChoices(),
             ]);
 

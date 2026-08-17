@@ -1,13 +1,13 @@
 {% extends '@ui/Base/View/base.html.twig' %}
 
-{% block title %}Product Form{% endblock %}
+{% block title %}Produkt{% endblock %}
 
 {% block body %}
 
     <div class="form-page">
 
         <h1 class="form-page__title">
-            Product form
+            Produkt
         </h1>
 
         {{ form_start(form, { attr: { class: 'form' } }) }}
@@ -55,11 +55,11 @@
 
         <div class="form__actions">
             <button class="button" type="submit">
-                Save
+                Zapisz
             </button>
 
             <a href="{{ path('shop_products_list') }}" class="button button--secondary">
-                Cancel
+                Anuluj
             </a>
         </div>
 

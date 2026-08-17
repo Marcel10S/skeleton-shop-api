@@ -11,7 +11,7 @@
                 type="button"
                 data-category-toggle="{{ node.category.id }}"
                 aria-expanded="true"
-                aria-label="Collapse category"
+                aria-label="Zwiń kategorię"
             ></button>
         {% else %}
             <span class="category-tree__spacer" aria-hidden="true"></span>
@@ -28,7 +28,7 @@
     <td>
 
         <a class="category-tree__edit-link" href="{{ path('shop_categories_edit', {id: node.category.id}) }}">
-            Edit
+            Edytuj
         </a>
 
     </td>

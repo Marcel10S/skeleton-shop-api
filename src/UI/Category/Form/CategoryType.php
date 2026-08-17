@@ -18,15 +18,17 @@ class CategoryType extends AbstractType
         array $options
     ): void {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, ['label' => 'Nazwa'])
             ->add('description', TextareaType::class, [
+                'label' => 'Opis',
                 'required' => false,
             ])
             ->add('parent', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
+                'label' => 'Kategoria nadrzędna',
                 'required' => false,
-                'placeholder' => 'Root category',
+                'placeholder' => 'Kategoria główna',
             ]);
     }
 

@@ -7,14 +7,17 @@ namespace App\Infrastructure\Order\Handler;
 use App\Entity\App\Order;
 use App\Entity\App\OrderItem;
 use App\Entity\App\Delivery;
+use App\Entity\App\Product;
+use App\Infrastructure\Order\Exception\OutOfStockException;
 use App\Infrastructure\Currency\Provider\CurrencyProvider;
 use App\Infrastructure\Order\DTO\OrderFormDTO;
-use App\Infrastructure\Order\Repository\OrderRepository;
+use Doctrine\DBAL\LockMode;
+use Doctrine\ORM\EntityManagerInterface;
 
 class OrderCreate
 {
     public function __construct(
-        private readonly OrderRepository $repository,
+        private readonly EntityManagerInterface $entityManager,
         private readonly CurrencyProvider $currencyProvider,
     )
     {
@@ -22,31 +25,26 @@ class OrderCreate
 
     public function createByDTO(OrderFormDTO $dto): void
     {
-        $order = new Order();
+        $this->entityManager->getConnection()->transactional(function () use ($dto): void {
+            $order = new Order();
+            $order->setPaymentMethod($dto->paymentMethod);
 
-        foreach ($dto->items as $item) {
-            $product = $item->product;
-            $price = $product->getPrice();
-            $currency = $this->currencyProvider->findOneByCode($price->getCurrency());
+            foreach ($dto->items as $item) {
+                /** @var Product $product */
+                $product = $this->entityManager->find(Product::class, $item->product->getId(), LockMode::PESSIMISTIC_WRITE);
+                if (!$product->isActive() || $product->getStock() < $item->quantity) {
+                    throw new OutOfStockException(sprintf('Produkt „%s” nie jest już dostępny w wybranej ilości.', $product->getName()));
+                }
 
-            $order->addItem(new OrderItem(
-                product: $product,
-                productName: $product->getName(),
-                quantity: $item->quantity,
-                unitAmount: $price->getAmount(),
-                currency: $price->getCurrency(),
-                rateToDefaultCurrency: $currency->getRateToDefaultCurrency(),
-            ));
-        }
+                $price = $product->getPrice();
+                $currency = $this->currencyProvider->findOneByCode($price->getCurrency());
+                $order->addItem(new OrderItem($product, $product->getName(), $item->quantity, $price->getAmount(), $price->getCurrency(), $currency->getRateToDefaultCurrency()));
+                $product->setStock($product->getStock() - $item->quantity);
+            }
 
-        $order->setDelivery(new Delivery(
-            courier: $dto->delivery->courier,
-            recipientName: $dto->delivery->recipientName,
-            addressLine: $dto->delivery->addressLine,
-            postalCode: $dto->delivery->postalCode,
-            city: $dto->delivery->city,
-        ));
-
-        $this->repository->save($order);
+            $order->setDelivery(new Delivery($dto->delivery->courier, $dto->delivery->recipientName, $dto->delivery->addressLine, $dto->delivery->postalCode, $dto->delivery->city));
+            $this->entityManager->persist($order);
+            $this->entityManager->flush();
+        });
     }
 }

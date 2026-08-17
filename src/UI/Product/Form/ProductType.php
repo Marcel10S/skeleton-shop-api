@@ -22,14 +22,17 @@ class ProductType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'placeholder' => 'Choose category',
+                'label' => 'Kategoria',
+                'placeholder' => 'Wybierz kategorię',
             ])
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, ['label' => 'Nazwa'])
             ->add('description', TextareaType::class, [
+                'label' => 'Opis',
                 'required' => false,
             ])
-            ->add('stock', IntegerType::class)
+            ->add('stock', IntegerType::class, ['label' => 'Stan magazynowy'])
             ->add('isActive', CheckboxType::class, [
+                'label' => 'Produkt aktywny',
                 'required' => false,
             ])
             ->add('price', MoneyType::class);

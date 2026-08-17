@@ -8,12 +8,13 @@
         <h1 class="manager-home__title">Zarządzaj swoim sklepem internetowym</h1>
         <p class="manager-home__intro">
             W tym miejscu możesz prowadzić katalog produktów, organizować kategorie
-            oraz tworzyć i przeglądać zamówienia.
+            zarządzać koszykami oraz tworzyć i przeglądać zamówienia.
         </p>
 
         <div class="manager-home__actions">
             <a href="{{ path('shop_products_list') }}" class="button">Przejdź do produktów</a>
             <a href="{{ path('shop_orders_list') }}" class="button button--secondary">Zobacz zamówienia</a>
+            <a href="{{ path('shop_carts_active_list') }}" class="button button--secondary">Aktywne koszyki</a>
         </div>
 
         <div class="manager-home__features">
@@ -28,6 +29,10 @@
             <article class="manager-home__feature">
                 <h2>Zamówienia</h2>
                 <p>Twórz zamówienia z wielu produktów i sprawdzaj sumy według walut.</p>
+            </article>
+            <article class="manager-home__feature">
+                <h2>Koszyki i dostawy</h2>
+                <p>Śledź aktywne koszyki oraz dostępne metody płatności i formy dostawy.</p>
             </article>
         </div>
     </section>

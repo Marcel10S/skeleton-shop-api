@@ -29,6 +29,7 @@ class OrderQueryRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('o')
             ->leftJoin('o.items', 'i')->addSelect('i')
             ->leftJoin('o.delivery', 'd')->addSelect('d')
+            ->leftJoin('o.paymentMethod', 'pm')->addSelect('pm')
             ->orderBy('o.createdAt', 'DESC')
             ->getQuery()
             ->getResult();
