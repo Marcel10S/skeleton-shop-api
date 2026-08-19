@@ -25,16 +25,21 @@ class CategoryController extends AbstractController
     public function categoryList(): JsonResponse
     {
         $categories = $this->categoryProvider->findAll();
+        $data = array_map(fn(Category $c) => $this->serializeCategory($c), $categories);
 
-        return $this->json($categories);
+        return $this->json($data);
     }
 
     #[Route('/{id}', name: 'single_by_id', methods: ['GET'])]
     public function categoryById(string $id): JsonResponse
     {
-        return $this->json(
-            $this->categoryProvider->findOneById($id)
-        );
+        $category = $this->categoryProvider->findOneById($id);
+
+        if (!$category) {
+            return $this->json(['error' => 'Category not found'], 404);
+        }
+
+        return $this->json($this->serializeCategory($category));
     }
 
     #[Route('', name: 'create', methods: ['POST'])]
@@ -42,18 +47,17 @@ class CategoryController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        if (!empty($data['parent_id'])) {
-            $parent = $this->categoryProvider->findOneById($data['parent_id']);
-        }
+        $parent = !empty($data['parent_id']) ? $this->categoryProvider->findOneById($data['parent_id']) : null;
 
         $category = new Category(
             $data['name'],
             $data['description'],
-            $parent ?? null,
+            $parent,
         );
 
         $handler->create($category);
-        return $this->json($category, 201);
+
+        return $this->json($this->serializeCategory($category), 201);
     }
 
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
@@ -70,7 +74,8 @@ class CategoryController extends AbstractController
         $category->setDescription($data['description']);
 
         $handler->update($category);
-        return $this->json($category);
+
+        return $this->json($this->serializeCategory($category));
     }
 
     #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
@@ -80,5 +85,18 @@ class CategoryController extends AbstractController
         $handler->delete($category);
 
         return $this->json(null, 204);
+    }
+
+    /**
+     * Serialize Category entity to API response format
+     * Excludes products to avoid circular references
+     */
+    private function serializeCategory(Category $category): array
+    {
+        return [
+            'id' => $category->getId(),
+            'name' => $category->getName(),
+            'description' => $category->getDescription(),
+        ];
     }
 }
