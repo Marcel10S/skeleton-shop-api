@@ -13,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'shop_order')]
 class Order extends BaseEntity
 {
+    #[ORM\Column(length: 24, unique: true)]
+    private string $orderNumber;
+
+    #[ORM\Column(length: 3)]
+    private ?string $defaultCurrencyCode = null;
+
     /** @var Collection<int, OrderItem> */
     #[ORM\OneToMany(mappedBy: 'order', targetEntity: OrderItem::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $items;
@@ -39,6 +45,28 @@ class Order extends BaseEntity
 
         $this->items = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+        $this->orderNumber = sprintf(
+            'SH-%s-%s',
+            $this->createdAt->format('Ymd'),
+            strtoupper(substr(str_replace('-', '', (string) $this->getId()), -8)),
+        );
+    }
+
+    public function getOrderNumber(): string
+    {
+        return $this->orderNumber;
+    }
+
+    public function getDefaultCurrencyCode(): ?string
+    {
+        return $this->defaultCurrencyCode;
+    }
+
+    public function setDefaultCurrencyCode(string $defaultCurrencyCode): self
+    {
+        $this->defaultCurrencyCode = strtoupper($defaultCurrencyCode);
+
+        return $this;
     }
 
     public function getCreatedAt(): \DateTimeImmutable

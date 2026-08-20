@@ -34,4 +34,16 @@ class OrderQueryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneByOrderNumber(string $orderNumber): ?Order
+    {
+        return $this->createQueryBuilder('o')
+            ->leftJoin('o.items', 'i')->addSelect('i')
+            ->leftJoin('o.delivery', 'd')->addSelect('d')
+            ->leftJoin('o.paymentMethod', 'pm')->addSelect('pm')
+            ->andWhere('o.orderNumber = :orderNumber')
+            ->setParameter('orderNumber', strtoupper(trim($orderNumber)))
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

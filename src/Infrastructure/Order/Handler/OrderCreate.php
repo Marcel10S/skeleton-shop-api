@@ -23,11 +23,12 @@ class OrderCreate
     {
     }
 
-    public function createByDTO(OrderFormDTO $dto): void
+    public function createByDTO(OrderFormDTO $dto): Order
     {
-        $this->entityManager->getConnection()->transactional(function () use ($dto): void {
+        return $this->entityManager->getConnection()->transactional(function () use ($dto): Order {
             $order = new Order();
             $order->setPaymentMethod($dto->paymentMethod);
+            $order->setDefaultCurrencyCode($this->currencyProvider->findDefault()->getCode());
 
             foreach ($dto->items as $item) {
                 /** @var Product $product */
@@ -45,6 +46,8 @@ class OrderCreate
             $order->setDelivery(new Delivery($dto->delivery->courier, $dto->delivery->recipientName, $dto->delivery->addressLine, $dto->delivery->postalCode, $dto->delivery->city));
             $this->entityManager->persist($order);
             $this->entityManager->flush();
+
+            return $order;
         });
     }
 }
