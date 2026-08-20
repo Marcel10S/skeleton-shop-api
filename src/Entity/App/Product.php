@@ -11,6 +11,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product extends BaseEntity
 {
+    #[ORM\Column]
+    #[Assert\Range(min: 1, max: 100)]
+    private int $priority = 1;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
@@ -105,6 +109,18 @@ class Product extends BaseEntity
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+        return $this;
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(int $priority): self
+    {
+        $this->priority = max(1, min(100, $priority));
+
         return $this;
     }
 }

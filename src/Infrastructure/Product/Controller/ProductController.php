@@ -56,6 +56,7 @@ class ProductController extends AbstractController
             new Money((int)($data['amount'] * 100), $data['currency']),
         );
         $product->setDescription($data['description'] ?? null);
+        $product->setPriority((int) ($data['priority'] ?? 1));
 
         $handler->create($product);
 
@@ -73,6 +74,7 @@ class ProductController extends AbstractController
         $product->setStock($data['stock']);
         $product->setPrice(new Money((int)($data['amount'] * 100), $data['currency']));
         $product->setDescription($data['description'] ?? null);
+        $product->setPriority((int) ($data['priority'] ?? 1));
 
         $handler->update($product);
 
@@ -99,6 +101,7 @@ class ProductController extends AbstractController
             'description' => $product->getDescription(),
             'stock' => $product->getStock(),
             'isActive' => $product->isActive(),
+            'priority' => $product->getPriority(),
             'price' => $this->serializePrice($product->getPrice()),
             'category' => $product->getCategory() ? $this->serializeCategory($product->getCategory()) : null,
         ];

@@ -19,6 +19,7 @@ class ProductUpdate
         $product->setStock($dto->stock);
         $product->setPrice($dto->price);
         $product->setIsActive($dto->isActive);
+        $product->setPriority($dto->priority);
 
         $this->update($product);
     }

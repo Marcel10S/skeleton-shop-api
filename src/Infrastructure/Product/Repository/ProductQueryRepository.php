@@ -31,6 +31,8 @@ class ProductQueryRepository extends ServiceEntityRepository
             ->andWhere('p.stock > :stock')
             ->setParameter('active', true)
             ->setParameter('stock', 0)
+            ->orderBy('p.priority', 'DESC')
+            ->addOrderBy('p.name', 'ASC')
             ->getQuery()
             ->getResult();
     }

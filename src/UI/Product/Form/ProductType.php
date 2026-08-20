@@ -31,6 +31,10 @@ class ProductType extends AbstractType
                 'required' => false,
             ])
             ->add('stock', IntegerType::class, ['label' => 'Stan magazynowy'])
+            ->add('priority', IntegerType::class, [
+                'label' => 'Priorytet (1–100)',
+                'attr' => ['min' => 1, 'max' => 100],
+            ])
             ->add('isActive', CheckboxType::class, [
                 'label' => 'Produkt aktywny',
                 'required' => false,

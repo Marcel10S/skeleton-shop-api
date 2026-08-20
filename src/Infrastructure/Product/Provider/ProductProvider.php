@@ -14,7 +14,7 @@ class ProductProvider
 
     public function findAll(): array
     {
-        return $this->queryRepository->findAll();
+        return $this->queryRepository->findBy([], ['priority' => 'DESC', 'name' => 'ASC']);
     }
 
     public function findOneById(string $id): Product

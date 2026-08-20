@@ -21,6 +21,7 @@ class ProductCreate
             price: $dto->price
         );
         $product->setDescription($dto->description);
+        $product->setPriority($dto->priority);
 
         $this->create($product);
     }
